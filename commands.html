@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Programming Commands Cheat Sheet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000000;
+      margin: 0;
+      padding: 0;
+    }
+    .window {
+      width: 800px;
+      height: 300px;
+      background: #fff;
+      border: 2px solid #333;
+      border-radius: 10px;
+      position: absolute;
+      box-shadow: 4px 4px 15px rgba(0,0,0,0.2);
+      user-select: text;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: #2c3e50;
+      color: white;
+      padding: 10px;
+      border-radius: 8px 8px 0 0;
+      cursor: move;
+      user-select: none;
+      font-weight: bold;
+    }
+    .content {
+      padding: 10px;
+      overflow-y: auto;
+      height: 100%;
+    }
+    code {
+      background: #eee;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+    ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+    li {
+      margin-bottom: 8px;
+      line-height: 1.4em;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="window" style="top: 50px; left: 50px;" id="win0">
+      <div class="header">Linux</div>
+      <div class="content">
+        <ul>
+    <li><code>ls -la</code> – List files with details</li>
+<li><code>grep 'text' file</code> – Search for text in a file</li>
+<li><code>du -hs folder_path</code> – Display the total size of a folder</li>
+<li><code>df -h</code> – Display the used and available memory space of the server</li>
+<li><code>df -h --type=ext4 --type=xfs --type=btrfs</code> – Shows only typical physical disk filesystems</li>
+<li><code>tmux new-session -s name_session</code> – create a new tmux session</li>
+<li><code>tmux attach-session -t name_session</code> – attach a tmux session</li>
+<li><code>ps aux | grep server.py</code> – identify an ongoing job</li>
+<li><code>screen -d -m -L python server.py</code> – run a process in the background</li>
+<li><code>for i in {1..2}; do echo batch$i; samtools merge -f combined_BAMs/R-2013-2166.batch$i.bam *batch$i_*.bam; done</code> – Concatenate bam files</li>
+<li><code>awk '{ if ($1 ~ /^#/ || $7 == 'PASS') print $0 }' input.vcf > filtered.vcf</code> – Filter PASS variants from a vcf file</li>
+<li><code>infer_experiment.py -r /home/alejandro/hg19/hg19_refseq.bed -i /mnt/storage2/sequencing/WTS/250411_A01183_0662_AH3YTFDMX2/BAMs/E-2018-58210_RNA_85248.bam</code> – Infer the RNA setting of WTS bam file</li>
+<li><code>awk 'BEGIN{OFS=	} {gsub(/^chr/, , $1); print $1, $2, $3, $5}' AllExome_sorted_as_bam.bed > fixed_for_vardict.bed</code> – Example of fixing bed file</li>
+</ul></div></div>
+
+    <div class="window" style="top: 110px; left: 80px;" id="win1">
+      <div class="header">Python</div>
+      <div class="content">
+        <ul>
+    <li><code>print('Hello')</code> – Print text to console</li>
+<li><code>len(my_list)</code> – Get the length of a list</li>
+<li><code>python /mnt/storage2/sequencing/software/WES+WTS/befundGen.py E-Nummer LibID WES LibID Normal Laufordner WES Laufordner WTS LibID WTS</code> – Befund generation combined WES + WTS</li>
+</ul></div></div>
+
+    <div class="window" style="top: 170px; left: 110px;" id="win2">
+      <div class="header">Conda</div>
+      <div class="content">
+        <ul>
+    <li><code>conda env list</code> – list conda enviroments</li>
+<li><code>conda activate env</code> – Activate a conda enviroment</li>
+</ul></div></div>
+
+    <div class="window" style="top: 230px; left: 140px;" id="win3">
+      <div class="header">Git</div>
+      <div class="content">
+        <ul>
+    <li><code>git add file.txt</code> – Add a file on git</li>
+<li><code>git commit -m 'description of change'</code> – Commit changes on file/folder</li>
+<li><code>git push origin master</code> – Upload changes in the gitlab</li>
+<li><code>git remote remove origin</code> – remove existing origin in repository</li>
+</ul></div></div>
+
+    <div class="window" style="top: 290px; left: 170px;" id="win4">
+      <div class="header">R</div>
+      <div class="content">
+        <ul>
+    <li><code>summary(df)</code> – Get summary statistics of a dataframe</li>
+<li><code>head(df)</code> – View first few rows of a dataframe</li>
+<li><code>df[df == 0] <- NA</code> – Transform all values equal to X into NA in data frame</li>
+<li><code>df <- df[!apply(is.na(df), 1, all), ]</code> – Remove rows where all the elements are NA</li>
+<li><code>df[is.na(df)] <- </code> – Replace all NA values in a data frame with empty strings </li>
+</ul></div></div>
+
+    <div class="window" style="top: 350px; left: 200px;" id="win5">
+      <div class="header">Snakemake</div>
+      <div class="content">
+        <ul>
+    <li><code>snakemake --cores 4</code> – Run workflow using 4 cores</li>
+<li><code>snakemake --dag | dot -Tpdf > dag.pdf</code> – Create a workflow DAG diagram</li>
+<li><code>snakemake -s /mnt/storage2/sequencing/software/WES/snakemake_pipeline/Snakefile --configfile /mnt/storage2/sequencing/software/WES/snakemake_pipeline/default_wes_config.yaml --cores 64 --resources fpga=1 -p -k --use-conda --conda-frontend conda</code> – RUN WES folder analysis</li>
+<li><code>snakemake -s /mnt/storage2/sequencing/software/WTS/Snakefile --configfile /mnt/storage2/sequencing/software/WTS/wts_config.yaml --cores 64 -p --use-conda --conda-frontend conda</code> – RUN WES folder analysis</li>
+<li><code>--rerun-triggers mtime</code> – rerun workflow by time updated files</li>
+<li><code>--rerun-incomplete</code> – rerun workflow incompleted jobs</li>
+<li><code>--keep-going</code> – Keep running jobs even some rules failed</li>
+<li><code>--until</code> – Run jobs until a given rule</li>
+<li><code>snakemake -s Scripts/Snakefile --configfile Scripts/stranded_config.yaml --jobs 10 --cores 80 --use-conda --conda-frontend conda --until</code> – example snakemake run</li>
+</ul></div></div>
+
+<script>
+  document.querySelectorAll('.window').forEach(win => {
+    const header = win.querySelector('.header');
+    let isDragging = false;
+    let offsetX = 0, offsetY = 0;
+
+    header.addEventListener('mousedown', e => {
+      isDragging = true;
+      offsetX = e.clientX - win.offsetLeft;
+      offsetY = e.clientY - win.offsetTop;
+      document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      win.style.left = (e.clientX - offsetX) + 'px';
+      win.style.top = (e.clientY - offsetY) + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      document.body.style.userSelect = '';
+    });
+  });
+</script>
+
+<div style="position: fixed; bottom: 10px; right: 10px; color: white; font-size: 12px;">
+  Generated by Alejandro Pallares (PhD): 2025-06-30 15:15:20
+</div>
+</body>
+</html>
